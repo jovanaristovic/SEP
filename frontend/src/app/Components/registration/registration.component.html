@@ -1,0 +1,83 @@
+<div class="container">
+  <div class="row">
+    <div class="offset-3"></div>
+    <div class="col-md-6">
+      <form name="registerForm" #f="ngForm" (submit)="register()"  novalidate class="form-signin">
+
+        <h2 class="form-signin-heading">Register</h2>
+        <!-- Email -->
+        <div class="form-group">
+          <label for="name">Name</label>
+          <input type="text"
+                 id="name"
+                 class="form-control"
+                 name="name"
+                 placeholder="Your name" [(ngModel)]="user.name" />
+        </div>
+
+        <div class="form-group">
+          <label for="lastName">Last name</label>
+          <input type="text"
+                 id="lastName"
+                 class="form-control"
+                 name="lastName"
+                 placeholder="Your email" [(ngModel)]="user.lastName" />
+        </div>
+
+        <div class="form-group">
+          <label for="email">Email</label>
+          <input type="text"
+                 id="email"
+                 class="form-control"
+                 name="email"
+                 placeholder="Your email" [(ngModel)]="user.email" />
+        </div>
+
+
+        <div class="form-group">
+          <label for="password">Password</label>
+          <input type="password"
+                 id="password"
+                 class="form-control"
+                 name="password"
+                 placeholder="Your password" [(ngModel)]="user.password" />
+        </div>
+
+
+        <div class="form-group">
+          <label for="repeatPassword">Repeat password</label>
+          <input type="password"
+                 id="repeatPassword"
+                 class="form-control"
+                 name="password"
+                 placeholder="Repeat your password" [(ngModel)]="confirmPassword" />
+        </div>
+
+        <div class="form-group">
+          <label for="city">City</label>
+          <input type="text"
+                 id="city"
+                 class="form-control"
+                 name="city"
+                 placeholder="City" [(ngModel)]="user.city" />
+        </div>
+
+        <div class="form-group">
+          <label for="number">Number</label>
+          <input type="text"
+                 id="number"
+                 class="form-control"
+                 name="number"
+                 placeholder="Your number" [(ngModel)]="user.number" />
+        </div>
+
+
+        <button type="submit"  class="btn btn-primary pull-right">
+          <i class="fa fa-envelope-o"></i>
+          <span> Register</span>
+        </button>
+      </form>
+    </div>
+    <div class="offset-3"></div>
+  </div>
+</div>
