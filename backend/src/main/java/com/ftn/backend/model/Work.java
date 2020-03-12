@@ -36,27 +36,10 @@ public class Work implements Serializable {
     @ManyToOne
     private ScientificField scientificField;
 
-    public Work(){}
+    @Column
+    private Long price;
 
-//    public Work(List<FormSubmissionDto> workData){
-//
-//        List<ScientificField> fields = new ArrayList<>();
-//        String scientificField = "";
-//        for(FormSubmissionDto dto : workData) {
-//
-//            if (dto.getFieldId().equals("naslov")) {
-//                this.title = dto.getFieldValue();
-//            } else if (dto.getFieldId().equals("apstrakt")) {
-//                this.apstrakt = dto.getFieldValue();
-//            } else if (dto.getFieldId().equals("kljucniPojmovi")) {
-//                this.keyWords = dto.getFieldValue();
-//            } else if (dto.getFieldId().equals("pdf")) {
-//                    this.pdf = dto.getFieldValue();
-//
-//            }
-//        }
-//
-//    }
+    public Work(){}
 
     public Long getId() {
         return id;
@@ -114,4 +97,11 @@ public class Work implements Serializable {
         this.scientificField = scientificField;
     }
 
+    public Long getPrice() {
+        return price;
+    }
+
+    public void setPrice(Long price) {
+        this.price = price;
+    }
 }

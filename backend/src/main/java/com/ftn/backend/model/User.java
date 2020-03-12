@@ -49,9 +49,6 @@ public class User implements Serializable, UserDetails {
     @Column
     private boolean enabled;
 
-    @Column
-    private boolean reviewer;
-
 
     @Column(name = "last_password_reset_date")
     private Timestamp lastPasswordResetDate;
@@ -196,13 +193,6 @@ public class User implements Serializable, UserDetails {
         this.title = title;
     }
 
-    public boolean isReviewer() {
-        return reviewer;
-    }
-
-    public void setReviewer(boolean reviewer) {
-        this.reviewer = reviewer;
-    }
 
     public List<ScientificField> getScientificFields() {
         return scientificFields;

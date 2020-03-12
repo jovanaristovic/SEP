@@ -22,6 +22,9 @@ public class Mempership {
     @Column
     private boolean isActive;
 
+    @Column
+    private Long price;
+
    public Mempership() {}
 
     public Long getId() {
@@ -54,5 +57,13 @@ public class Mempership {
 
     public void setActive(boolean active) {
         isActive = active;
+    }
+
+    public Long getPrice() {
+        return price;
+    }
+
+    public void setPrice(Long price) {
+        this.price = price;
     }
 }

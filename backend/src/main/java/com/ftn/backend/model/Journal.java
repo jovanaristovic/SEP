@@ -1,8 +1,11 @@
 package com.ftn.backend.model;
 
 
+import com.ftn.backend.dto.NewJournalDto;
+
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.List;
 
 @Table
@@ -21,41 +24,34 @@ public class Journal implements Serializable {
     private String ISSN;
 
     @Column
-    private String payment;
+    private boolean isOpenAccess;
 
-    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinTable(name = "journal_scientific_field",
-            joinColumns = @JoinColumn(name = "journal_id", referencedColumnName = "id"),
-            inverseJoinColumns = @JoinColumn(name = "scientificField_id", referencedColumnName = "id"))
-    private List<ScientificField> scientificFields;
+   @ManyToOne
+    private ScientificField scientificField;
 
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<User> users;
 
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Work> works;
+
     @Column
     private boolean isActive;
+
+    @Column
+    private Long price;
 
 
     public Journal( ){}
 
-//    public Journal(List<FormSubmissionDto> journalData){
-//
-//        List<ScientificField> fields = new ArrayList<>();
-//        for(FormSubmissionDto dto : journalData) {
-//
-//            if (dto.getFieldId().equals("naslov")) {
-//                this.title = dto.getFieldValue();
-//            } else if (dto.getFieldId().equals("nacinPlacanja")) {
-//                this.payment = dto.getFieldValue();
-//            } else if (dto.getFieldId().equals("ISSN")) {
-//                this.ISSN = (dto.getFieldValue());
-//            }
-//        }
-//        this.scientificFields = new ArrayList<>();
-//        this.users = new ArrayList<>();
-//        this.isActive = false;
-//
-//    }
+    public Journal (NewJournalDto newJournalDto) {
+
+        this.title = newJournalDto.getTitle();
+        this.ISSN = newJournalDto.getIssn();
+        this.isOpenAccess = newJournalDto.isOpenAccess();
+        this.price = newJournalDto.getPrice();
+        this.isActive = true;
+    }
 
     public Long getId() {
         return id;
@@ -81,20 +77,20 @@ public class Journal implements Serializable {
         this.ISSN = ISSN;
     }
 
-    public String getPayment() {
-        return payment;
+    public boolean isOpenAccess() {
+        return isOpenAccess;
     }
 
-    public void setPayment(String payment) {
-        this.payment = payment;
+    public void setOpenAccess(boolean openAccess) {
+        isOpenAccess = openAccess;
     }
 
-    public List<ScientificField> getScientificFields() {
-        return scientificFields;
+    public ScientificField getScientificField() {
+        return scientificField;
     }
 
-    public void setScientificFields(List<ScientificField> scientificFields) {
-        this.scientificFields = scientificFields;
+    public void setScientificField(ScientificField scientificField) {
+        this.scientificField = scientificField;
     }
 
     public List<User> getUsers() {
@@ -111,5 +107,21 @@ public class Journal implements Serializable {
 
     public void setActive(boolean active) {
         isActive = active;
+    }
+
+    public Long getPrice() {
+        return price;
+    }
+
+    public void setPrice(Long price) {
+        this.price = price;
+    }
+
+    public List<Work> getWorks() {
+        return works;
+    }
+
+    public void setWorks(List<Work> works) {
+        this.works = works;
     }
 }
