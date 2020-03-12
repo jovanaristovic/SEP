@@ -16,6 +16,8 @@ import {HttpModule} from '@angular/http';
 import {HomeComponent} from './Components/home/home.component';
 import {Notauthorized} from './Components/guard/notauthorized.guard';
 import {NavbarComponent} from './Components/navbar/navbar.component';
+import { NewJournalComponent } from './Components/new-journal/new-journal.component';
+import { AllJournalsComponent } from './Components/all-journals/all-journals.component';
 
 
 const Routes = [
@@ -32,7 +34,9 @@ const Routes = [
     RegistrationComponent,
     LogInComponent,
     HomeComponent,
-    NavbarComponent
+    NavbarComponent,
+    NewJournalComponent,
+    AllJournalsComponent
 
   ],
   imports: [

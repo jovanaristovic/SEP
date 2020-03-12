@@ -1,0 +1,65 @@
+<div class="container">
+  <div class="row">
+    <div class="offset-3"></div>
+    <div class="col-md-6">
+      <form name="newJournalForm" #f="ngForm" (submit)="create()"  novalidate class="form-signin">
+
+        <h2 class="form-signin-heading">New Journal</h2>
+        <!-- Email -->
+        <div class="form-group">
+          <label for="title">Title</label>
+          <input type="text"
+                 id="title"
+                 class="form-control"
+                 name="title"
+                 [(ngModel)]="journal.title" />
+        </div>
+
+        <div class="form-group">
+          <label for="issn">ISSN</label>
+          <input type="text"
+                 id="issn"
+                 class="form-control"
+                 name="issn"
+                 [(ngModel)]="journal.issn" />
+        </div>
+
+        <div class="form-group">
+          <label for="openAccess">Open Access</label>
+          <input type="checkbox"
+                 id="openAccess"
+                 class="form-group"
+                 name="openAccess"
+                 [(ngModel)]="journal.openAccess" />
+        </div>
+
+
+        <div class="form-group">
+          <label for="scientificField"> Scientific field </label>
+          <select [(ngModel)]="journal.scientificField" id="scientificField" name="scientificField">
+            <option *ngFor="let scField of enumValues" [value]="scField.name"  >{{scField.name}}</option>
+
+          </select>
+        </div>
+
+
+
+        <div class="form-group">
+          <label for="price">Price</label>
+          <input type="text"
+                 id="price"
+                 class="form-control"
+                 name="price"
+                 [(ngModel)]="journal.price" />
+        </div>
+
+
+        <button type="submit"  class="btn btn-primary pull-right">
+          <i class="fa fa-envelope-o"></i>
+          <span> Create</span>
+        </button>
+      </form>
+    </div>
+    <div class="offset-3"></div>
+  </div>
+</div>
