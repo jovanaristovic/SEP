@@ -10,6 +10,7 @@ import java.util.List;
 public interface JournalService {
 
     Journal findJournalByTitle(String title);
+    Journal findJournalById(Long id);
     Journal saveJournal(Journal journal);
     Journal findJournalByISSN(String ISSN);
     List<Journal> findAllJournals();

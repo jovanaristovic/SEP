@@ -33,4 +33,12 @@ public class JournalController {
         List<Journal> journals = this.journalService.findAllJournals();
         return new ResponseEntity<>(journals, HttpStatus.OK);
     }
+
+    @GetMapping(value = "/{id}")
+    public ResponseEntity<Journal> getJournalById(@PathVariable Long id) {
+        Journal journal = this.journalService.findJournalById(id);
+        return new ResponseEntity<>(journal, HttpStatus.OK);
+    }
+
+
 }

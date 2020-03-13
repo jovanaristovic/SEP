@@ -2,7 +2,6 @@ package com.ftn.backend.service.serviceImpl;
 
 
 import com.ftn.backend.dto.NewJournalDto;
-import com.ftn.backend.dto.ScientificFieldDto;
 import com.ftn.backend.model.Journal;
 import com.ftn.backend.model.ScientificField;
 import com.ftn.backend.repository.JournalRepository;
@@ -11,7 +10,6 @@ import com.ftn.backend.service.ScientificFieldService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -27,6 +25,11 @@ public class JournalServiceImpl implements JournalService {
     public Journal findJournalByTitle(String title) {
         Journal journal = this.journalRepository.findJournalByTitle(title);
         return journal;
+    }
+
+    @Override
+    public Journal findJournalById(Long id) {
+        return this.journalRepository.findJournalById(id);
     }
 
     @Override

@@ -11,5 +11,6 @@ public interface JournalRepository extends JpaRepository<Journal, Long> {
 
     Journal findJournalByTitle(String title);
     Journal findJournalByISSN(String ISSN);
+    Journal findJournalById(Long id);
     List<Journal> findAll();
 }

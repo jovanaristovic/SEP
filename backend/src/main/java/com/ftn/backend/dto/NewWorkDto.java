@@ -3,25 +3,27 @@ package com.ftn.backend.dto;
 
 public class NewWorkDto {
 
-    private Long journalId;
+    private String journalId;
 
     private String title;
 
     private String apstrakt;
 
-    private String pdf;
-
-    private ScientificFieldDto scientificFieldDto;
+    private String scientificField;
 
     private Long price;
 
+    private String file;
+
+    private String fileName;
+
     public NewWorkDto () {}
 
-    public Long getJournalId() {
+    public String getJournalId() {
         return journalId;
     }
 
-    public void setJournalId(Long journalId) {
+    public void setJournalId(String journalId) {
         this.journalId = journalId;
     }
 
@@ -41,20 +43,12 @@ public class NewWorkDto {
         this.apstrakt = apstrakt;
     }
 
-    public String getPdf() {
-        return pdf;
+    public String getScientificField() {
+        return scientificField;
     }
 
-    public void setPdf(String pdf) {
-        this.pdf = pdf;
-    }
-
-    public ScientificFieldDto getScientificFieldDto() {
-        return scientificFieldDto;
-    }
-
-    public void setScientificFieldDto(ScientificFieldDto scientificFieldDto) {
-        this.scientificFieldDto = scientificFieldDto;
+    public void setScientificField(String scientificField) {
+        this.scientificField = scientificField;
     }
 
     public Long getPrice() {
@@ -63,5 +57,21 @@ public class NewWorkDto {
 
     public void setPrice(Long price) {
         this.price = price;
+    }
+
+    public String getFile() {
+        return file;
+    }
+
+    public void setFile(String file) {
+        this.file = file;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
     }
 }

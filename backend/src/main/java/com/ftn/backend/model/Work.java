@@ -1,5 +1,7 @@
 package com.ftn.backend.model;
 
+import com.ftn.backend.dto.NewWorkDto;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.List;
@@ -20,13 +22,6 @@ public class Work implements Serializable {
     @Column
     private String apstrakt;
 
-    @Column
-    private String keyWords;
-
-    @Column
-    private String pdf;
-
-
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "work_user",
             joinColumns = @JoinColumn(name = "work_id", referencedColumnName = "id"),
@@ -39,7 +34,17 @@ public class Work implements Serializable {
     @Column
     private Long price;
 
+    @Column
+    private String fileName;
+
     public Work(){}
+
+    public Work(NewWorkDto newWorkDto) {
+        this.apstrakt = newWorkDto.getApstrakt();
+        this.title = newWorkDto.getTitle();
+        this.price = newWorkDto.getPrice();
+        this.fileName = newWorkDto.getFileName();
+    }
 
     public Long getId() {
         return id;
@@ -65,22 +70,6 @@ public class Work implements Serializable {
         this.apstrakt = apstrakt;
     }
 
-    public String getKeyWords() {
-        return keyWords;
-    }
-
-    public void setKeyWords(String keyWords) {
-        this.keyWords = keyWords;
-    }
-
-    public String getPdf() {
-        return pdf;
-    }
-
-    public void setPdf(String pdf) {
-        this.pdf = pdf;
-    }
-
     public List<User> getUsers() {
         return users;
     }
@@ -103,5 +92,13 @@ public class Work implements Serializable {
 
     public void setPrice(Long price) {
         this.price = price;
+    }
+
+    public String getFileName() {
+        return fileName;
+    }
+
+    public void setFileName(String fileName) {
+        this.fileName = fileName;
     }
 }

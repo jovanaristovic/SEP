@@ -51,6 +51,7 @@ public class Journal implements Serializable {
         this.isOpenAccess = newJournalDto.isOpenAccess();
         this.price = newJournalDto.getPrice();
         this.isActive = true;
+        this.works = new ArrayList<>();
     }
 
     public Long getId() {
