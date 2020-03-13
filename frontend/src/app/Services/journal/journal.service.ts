@@ -17,4 +17,8 @@ export class JournalService {
   getAll() {
     return this.httpClient.get('api/journal/all') as Observable<any>;
   }
+
+  getById(id) {
+    return this.httpClient.get('api/journal/'.concat(id)) as Observable<any>;
+  }
 }

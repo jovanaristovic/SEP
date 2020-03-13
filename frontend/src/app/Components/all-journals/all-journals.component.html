@@ -1,7 +1,7 @@
 <div class="list-group">
 
   <div  class="list-group-item list-group-item-action flex-column align-items-start" *ngFor="let journal of journals" >
-    <div class="d-flex w-100 justify-content-between" (click)="journalProfile(journal)">
+    <div class="d-flex w-100 justify-content-between" (click)="journalProfile(journal.id)">
       <h5 class="mb-1" >{{journal.title}}</h5>
     </div>
     <div class="form-inline"><h6 > ISSN: </h6><p class="mb-1">{{ journal.issn}}</p></div>

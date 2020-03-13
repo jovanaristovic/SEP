@@ -18,6 +18,8 @@ import {Notauthorized} from './Components/guard/notauthorized.guard';
 import {NavbarComponent} from './Components/navbar/navbar.component';
 import { NewJournalComponent } from './Components/new-journal/new-journal.component';
 import { AllJournalsComponent } from './Components/all-journals/all-journals.component';
+import { JournalProfileComponent } from './Components/journal-profile/journal-profile.component';
+import { NewWorkComponent } from './Components/new-work/new-work.component';
 
 
 const Routes = [
@@ -36,7 +38,9 @@ const Routes = [
     HomeComponent,
     NavbarComponent,
     NewJournalComponent,
-    AllJournalsComponent
+    AllJournalsComponent,
+    JournalProfileComponent,
+    NewWorkComponent
 
   ],
   imports: [

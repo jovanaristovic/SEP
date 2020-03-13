@@ -6,6 +6,8 @@ import {RegistrationComponent} from './Components/registration/registration.comp
 import {LogInComponent} from './Components/log-in/log-in.component';
 import {NewJournalComponent} from './Components/new-journal/new-journal.component';
 import {AllJournalsComponent} from './Components/all-journals/all-journals.component';
+import {JournalProfileComponent} from './Components/journal-profile/journal-profile.component';
+import {NewWorkComponent} from './Components/new-work/new-work.component';
 
 const appRoutes: Routes = [
     {path: '', redirectTo: '/home', pathMatch: 'full'},
@@ -13,7 +15,9 @@ const appRoutes: Routes = [
     {path: 'register', component : RegistrationComponent},
     {path: 'login', component: LogInComponent},
   {path: 'journal/new', component: NewJournalComponent},
-  {path: 'journal/all', component: AllJournalsComponent}
+  {path: 'journal/all', component: AllJournalsComponent},
+  {path: 'journal/:id', component: JournalProfileComponent},
+  {path: 'work/new/:id', component: NewWorkComponent}
 
 ];
 
