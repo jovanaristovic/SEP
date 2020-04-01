@@ -1,27 +1,10 @@
-<!--<div class="list-group">-->
-
-  <!--<div  class="list-group-item list-group-item-action flex-column align-items-start" *ngFor="let journal of journals" >-->
-    <!--<div class="d-flex w-100 justify-content-between" (click)="journalProfile(journal.id)">-->
-      <!--<h5 class="mb-1" >{{journal.title}}</h5>-->
-    <!--</div>-->
-    <!--<div class="form-inline"><h6 > ISSN: </h6><p class="mb-1">{{ journal.issn}}</p></div>-->
-    <!--<div class="form-inline"><h6>Scientific field: </h6> <p class="mb-1">{{ journal.scientificField.name}}</p></div>-->
-      <!--<div class="form-inline"><h6>Price: </h6><p class="mb-1">{{ journal.price}}</p></div>-->
-
-    <!--&lt;!&ndash;<span><a><img src="https://img.icons8.com/carbon-copy/100/000000/delete.png" width="30" height="30"></a></span>&ndash;&gt;-->
-  <!--</div>-->
-<!--</div>-->
-
-<div *ngIf="insertTimeMode === false">
+<div class="list-group" *ngIf="insertTimeMode === false">
   <div  id="magazines">
     <h3>Magazines</h3>
     <br><br>
-    <div *ngFor="let journal of journals">
-      <div>
-        <div class="list-group-item list-group-item-action flex-column align-items-start">
-          <!--      <span class="mb-1 pull-right">-->
-          <!--        <a ><img src="https://img.icons8.com/carbon-copy/100/000000/delete.png" width="30" height="30" alt=""></a>-->
-          <!--      </span>-->
+    <div *ngFor="let journal of journals"    class="list-group-item list-group-item-action flex-column align-items-start">
+      <div  class="w-100 justify-content-between" (click)="journalProfile(journal['id'])">
+        <div >
           <div class="d-flex w-80 justify-content-between">
             <h5 class="mb-2">{{journal['title']}}</h5>
 
@@ -31,13 +14,13 @@
               {{journal.scientificField.name}}
           </span>
 
-          <!--<p class="mb-2">Payment type: {{magazine['paymentType']}}</p>-->
           <p class="mb-2">ISSN number: {{journal['issn']}}</p>
-
-          <button  class="btn btn-secondary" (click)="buyMagazine(journal['id'])">Buy</button>
-          <button  class="btn btn-secondary" (click)="addSubscriptionTime(journal['id'])">Subscribe</button>
         </div>
       </div>
+          <button  class="btn btn-primary pull-right" (click)="buyMagazine(journal['id'])">Buy</button>
+          <button class="btn btn-primary pull-right"(click)="addSubscriptionTime(journal['id'])">Subscribe</button>
+
+
     </div>
   </div>
 </div>

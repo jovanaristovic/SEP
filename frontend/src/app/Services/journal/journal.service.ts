@@ -25,7 +25,7 @@ export class JournalService {
   }
 
   buyJournal(id) {
-    return this.httpClient.get('api/journal/buy/'.concat(id)).subscribe(url => {
+    return this.httpClient.get('api/journal/buy/journal/'.concat(id)).subscribe(url => {
 
       this.document.location.href = url['url'];
       this.httpClient.get(url['url']).subscribe(ret => {
@@ -37,5 +37,19 @@ export class JournalService {
       });
     });
 
+  }
+
+  buyWork(id) {
+    return this.httpClient.get('api/journal/buy/work/'.concat(id)).subscribe(url => {
+
+      this.document.location.href = url['url'];
+      this.httpClient.get(url['url']).subscribe(ret => {
+        console.log('success');
+      });
+    }, error => {
+      this.httpClient.get(error).subscribe(value => {
+        console.log('error');
+      });
+    });
   }
 }

@@ -40,7 +40,7 @@ export class NewWorkComponent implements OnInit {
     const y = new NewWorkDto(this.journalId, this.title, this.apstrakt, this.scientificField, this.price, this.fileField.toString(), this.fileName.toString());
 
     this.workService.newWork(y).subscribe(newJournal => {
-      this.toastr.successToastr('Journal created', 'Success');
+      this.toastr.successToastr('Work created', 'Success');
 
       this.router.navigate(['/home'], {});
     });

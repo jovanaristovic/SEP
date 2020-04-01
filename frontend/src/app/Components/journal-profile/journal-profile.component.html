@@ -1,11 +1,34 @@
-<div class="form-group"><label>Works</label>
-  <div><button  class="btn btn-primary pull-right"
-                [routerLink]="['/work/new/'.concat(id)]">New work</button></div>
-</div>
 
-<ul class="list-group" *ngFor="let work of journalWorks">
-  <li class="list-group-item d-flex justify-content-between align-items-center" >
-    {{work['title']}} {{work['apstrakt']}} {{work['scientificField']['name']}}
-    <!--<span><a *ngIf="userRole === 'ROLE_ADMIN_SERVICE' && user.inChargeOf === carService.id" (click)="deleteAffiliate(affiliate)"><img src="https://img.icons8.com/carbon-copy/100/000000/delete.png" width="30" height="30"></a></span>-->
-  </li>
-</ul>
+
+
+<!--<ul class="list-group" *ngFor="let work of journalWorks">-->
+  <!--<li class="list-group-item d-flex justify-content-between align-items-center" >-->
+    <!--{{work['title']}} {{work['apstrakt']}} {{work['scientificField']['name']}}-->
+    <!--&lt;!&ndash;<span><a *ngIf="userRole === 'ROLE_ADMIN_SERVICE' && user.inChargeOf === carService.id" (click)="deleteAffiliate(affiliate)"><img src="https://img.icons8.com/carbon-copy/100/000000/delete.png" width="30" height="30"></a></span>&ndash;&gt;-->
+  <!--</li>-->
+  <!---->
+  <!---->
+<!--</ul>-->
+
+
+<div class="list-group">
+  <div  id="magazines">
+    <h3>Works</h3>
+    <div class="form-group">
+      <div><button  class="btn btn-primary pull-right"
+                    [routerLink]="['/work/new/'.concat(id)]">New work</button></div>
+    </div>
+    <br><br>
+    <div *ngFor="let work of journalWorks"   class="list-group-item list-group-item-action flex-column align-items-start">
+      <div  class="w-100 justify-content-between" >
+        <div >
+          <div class="d-flex w-80 justify-content-between">
+            <h5 class="mb-2">{{work['title']}} {{work['apstrakt']}} {{work['scientificField']['name']}}</h5>
+          </div>
+        </div>
+      </div>
+      <button class="btn btn-primary pull-right" (click)="buyWork(work['id'])">Buy</button>
+
+    </div>
+  </div>
+</div>

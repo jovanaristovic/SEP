@@ -25,4 +25,9 @@ export class JournalProfileComponent implements OnInit {
     });
   }
 
+
+  buyWork(id) {
+    this.journalService.buyWork(id);
+  }
+
 }
