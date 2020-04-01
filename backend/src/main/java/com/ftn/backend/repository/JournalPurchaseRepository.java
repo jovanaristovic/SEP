@@ -1,11 +1,11 @@
 package com.ftn.backend.repository;
 
-import com.ftn.backend.model.JournalPurchase;
+import com.ftn.backend.model.Purchase;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface JournalPurchaseRepository extends JpaRepository<JournalPurchase, Long> {
+public interface JournalPurchaseRepository extends JpaRepository<Purchase, Long> {
 
-    JournalPurchase findJournalPurchaseById(Long id);
+    Purchase findJournalPurchaseById(Long id);
 }

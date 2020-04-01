@@ -3,20 +3,16 @@ package com.ftn.backend.service.serviceImpl;
 
 import com.ftn.backend.dto.BuyJournalDto;
 import com.ftn.backend.dto.NewJournalDto;
-import com.ftn.backend.model.Journal;
-import com.ftn.backend.model.JournalPurchase;
-import com.ftn.backend.model.ScientificField;
-import com.ftn.backend.model.User;
+import com.ftn.backend.model.*;
 import com.ftn.backend.repository.JournalRepository;
-import com.ftn.backend.service.JournalPurchaseService;
-import com.ftn.backend.service.JournalService;
-import com.ftn.backend.service.ScientificFieldService;
-import com.ftn.backend.service.UserService;
+import com.ftn.backend.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 @Service
 public class JournalServiceImpl implements JournalService {
@@ -28,10 +24,16 @@ public class JournalServiceImpl implements JournalService {
     private ScientificFieldService scientificFieldService;
 
     @Autowired
-    private JournalPurchaseService journalPurchaseService;
+    private PurchaseService purchaseService;
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private TransactionService transactionService;
+
+    @Autowired
+    private WorkService workService;
 
     @Override
     public Journal findJournalByTitle(String title) {
@@ -71,27 +73,53 @@ public class JournalServiceImpl implements JournalService {
     }
 
     @Override
-    public BuyJournalDto buyJournal(Long journalId, String email) {
-
-        Journal journal = this.journalRepository.findJournalById(journalId);
-
-        JournalPurchase journalPurchase = new JournalPurchase(journal, "New");
-        this.journalPurchaseService.save(journalPurchase);
+    public HttpEntity buyJournal(Long id, String email, String typeOfProduct) {
 
         User user = this.userService.findUserByEmail(email);
 
-        if(user.getJournalPurchases() == null){
-            List<JournalPurchase> journalPurchases = new ArrayList<>();
-            journalPurchases.add(journalPurchase);
-            user.setJournalPurchases(journalPurchases);
+        Purchase purchase = null;
+        Journal journal = null;
+        Work work = null;
+        if(typeOfProduct.equals("journal")) {
+             journal = this.journalRepository.findJournalById(id);
+            purchase = new Purchase(journal.getId(), "New", "journal");
+            this.purchaseService.save(purchase);
+        } else{
+            work = this.workService.findById(id);
+            purchase = new Purchase(work.getId(), "New", "work");
+            this.purchaseService.save(purchase);
+        }
+
+        if(user.getPurchases() == null){
+            List<Purchase> purchases = new ArrayList<>();
+            purchases.add(purchase);
+            user.setPurchases(purchases);
         } else {
-            user.getJournalPurchases().add(journalPurchase);
+            user.getPurchases().add(purchase);
         }
         userService.saveUser(user);
 
+        BuyJournalDto buyJournalDto = null;
+        if (typeOfProduct.equals("journal")) {
 
-        BuyJournalDto buyJournalDto = new BuyJournalDto(journalId, journal.getTitle(), email, journal.getPrice(), journalPurchase.getId());
+            Transaction transaction = new Transaction("journal", id, email, journal.getPrice(), "New", purchase.getId());
+            this.transactionService.save(transaction);
+            buyJournalDto = new BuyJournalDto(id, journal.getTitle(), email, journal.getPrice(), purchase.getId());
 
-        return buyJournalDto;
+
+        } else {
+            Transaction transaction = new Transaction("work", id, email, work.getPrice(), "New", purchase.getId());
+            this.transactionService.save(transaction);
+            buyJournalDto = new BuyJournalDto(id, work.getTitle(), email, work.getPrice(), purchase.getId());
+        }
+
+
+        HttpHeaders requestHeaders = new HttpHeaders();
+        requestHeaders.setContentType(MediaType.APPLICATION_JSON);
+        requestHeaders.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
+
+        HttpEntity requestEntity = new HttpEntity<>(buyJournalDto, requestHeaders);
+
+        return requestEntity;
     }
 }

@@ -73,4 +73,9 @@ public class WorkServiceImpl implements WorkService {
 
         return work;
     }
+
+    @Override
+    public Work findById(Long id) {
+        return this.workRepository.findWorkById(id);
+    }
 }

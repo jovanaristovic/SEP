@@ -66,7 +66,7 @@ public class User implements Serializable, UserDetails {
     private Mempership mempership;
 
     @ManyToMany
-    private List<JournalPurchase> journalPurchases;
+    private List<Purchase> purchases;
 
     public Timestamp getLastPasswordResetDate() {
         return lastPasswordResetDate;
@@ -76,7 +76,7 @@ public class User implements Serializable, UserDetails {
         this.lastPasswordResetDate = lastPasswordResetDate;
     }
     public User(){
-        this.journalPurchases = new ArrayList<>();
+        this.purchases = new ArrayList<>();
     }
 
 
@@ -219,11 +219,11 @@ public class User implements Serializable, UserDetails {
     }
 
 
-    public List<JournalPurchase> getJournalPurchases() {
-        return journalPurchases;
+    public List<Purchase> getPurchases() {
+        return purchases;
     }
 
-    public void setJournalPurchases(List<JournalPurchase> journalPurchases) {
-        this.journalPurchases = journalPurchases;
+    public void setPurchases(List<Purchase> purchases) {
+        this.purchases = purchases;
     }
 }

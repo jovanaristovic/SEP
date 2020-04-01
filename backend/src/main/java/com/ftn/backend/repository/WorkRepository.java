@@ -8,5 +8,6 @@ import org.springframework.stereotype.Repository;
 public interface WorkRepository extends JpaRepository<Work, Long> {
 
     Work findWorkByTitle(String title);
+    Work findWorkById(Long id);
 
 }
