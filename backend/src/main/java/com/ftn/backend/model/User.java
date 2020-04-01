@@ -65,6 +65,9 @@ public class User implements Serializable, UserDetails {
     @OneToOne
     private Mempership mempership;
 
+    @ManyToMany
+    private List<JournalPurchase> journalPurchases;
+
     public Timestamp getLastPasswordResetDate() {
         return lastPasswordResetDate;
     }
@@ -72,46 +75,9 @@ public class User implements Serializable, UserDetails {
     public void setLastPasswordResetDate(Timestamp lastPasswordResetDate) {
         this.lastPasswordResetDate = lastPasswordResetDate;
     }
-    public User(){}
-
-//    public User(List<FormSubmissionDto> registrationData){
-//
-//        List<ScientificField> fields = new ArrayList<>();
-//        for(FormSubmissionDto dto : registrationData) {
-//
-//            if (dto.getFieldId().equals("ime")) {
-//                this.name = dto.getFieldValue();
-//            } else if (dto.getFieldId().equals("prezime")) {
-//                this.lastName = dto.getFieldValue();
-//            } else if (dto.getFieldId().equals("grad")) {
-//                this.city = dto.getFieldValue();
-//            } else if (dto.getFieldId().equals("drzava")) {
-//                this.country = dto.getFieldValue();
-//            } else if (dto.getFieldId().equals("titula")) {
-//                if(!dto.getFieldValue().isEmpty()) {
-//                    this.title = dto.getFieldValue();
-//                }
-//            } else if (dto.getFieldId().equals("email")) {
-//                this.email = dto.getFieldValue();
-//            } else if (dto.getFieldId().equals("korisnickoIme")) {
-//                this.username = dto.getFieldValue();
-//            } else if (dto.getFieldId().equals("jesteRecenzent")) {
-//
-//                if (dto.getFieldValue() != null) {
-//                    if (dto.getFieldValue().equals("true")) {
-//                        this.reviewer = true;
-//                    } else {
-//                        this.reviewer = false;
-//                    }
-//                } else {
-//                    this.reviewer = false;
-//                }
-//            }
-//        }
-//
-//        this.enabled = false;
-//
-//    }
+    public User(){
+        this.journalPurchases = new ArrayList<>();
+    }
 
 
     public Long getId() {
@@ -253,8 +219,11 @@ public class User implements Serializable, UserDetails {
     }
 
 
+    public List<JournalPurchase> getJournalPurchases() {
+        return journalPurchases;
+    }
 
-
-
-
+    public void setJournalPurchases(List<JournalPurchase> journalPurchases) {
+        this.journalPurchases = journalPurchases;
+    }
 }

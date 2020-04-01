@@ -14,5 +14,6 @@ public interface UserService {
     User findUserByEmail(String email);
     List<User> findAll();
     User register (RegisterUserDto registerUserDto);
+    User saveUser (User user);
 
 }

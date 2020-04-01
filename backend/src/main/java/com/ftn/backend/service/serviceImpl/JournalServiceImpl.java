@@ -1,15 +1,21 @@
 package com.ftn.backend.service.serviceImpl;
 
 
+import com.ftn.backend.dto.BuyJournalDto;
 import com.ftn.backend.dto.NewJournalDto;
 import com.ftn.backend.model.Journal;
+import com.ftn.backend.model.JournalPurchase;
 import com.ftn.backend.model.ScientificField;
+import com.ftn.backend.model.User;
 import com.ftn.backend.repository.JournalRepository;
+import com.ftn.backend.service.JournalPurchaseService;
 import com.ftn.backend.service.JournalService;
 import com.ftn.backend.service.ScientificFieldService;
+import com.ftn.backend.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -20,6 +26,12 @@ public class JournalServiceImpl implements JournalService {
 
     @Autowired
     private ScientificFieldService scientificFieldService;
+
+    @Autowired
+    private JournalPurchaseService journalPurchaseService;
+
+    @Autowired
+    private UserService userService;
 
     @Override
     public Journal findJournalByTitle(String title) {
@@ -56,5 +68,30 @@ public class JournalServiceImpl implements JournalService {
         this.journalRepository.save(journal);
 
         return journal;
+    }
+
+    @Override
+    public BuyJournalDto buyJournal(Long journalId, String email) {
+
+        Journal journal = this.journalRepository.findJournalById(journalId);
+
+        JournalPurchase journalPurchase = new JournalPurchase(journal, "New");
+        this.journalPurchaseService.save(journalPurchase);
+
+        User user = this.userService.findUserByEmail(email);
+
+        if(user.getJournalPurchases() == null){
+            List<JournalPurchase> journalPurchases = new ArrayList<>();
+            journalPurchases.add(journalPurchase);
+            user.setJournalPurchases(journalPurchases);
+        } else {
+            user.getJournalPurchases().add(journalPurchase);
+        }
+        userService.saveUser(user);
+
+
+        BuyJournalDto buyJournalDto = new BuyJournalDto(journalId, journal.getTitle(), email, journal.getPrice(), journalPurchase.getId());
+
+        return buyJournalDto;
     }
 }

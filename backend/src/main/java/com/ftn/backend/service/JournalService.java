@@ -1,5 +1,6 @@
 package com.ftn.backend.service;
 
+import com.ftn.backend.dto.BuyJournalDto;
 import com.ftn.backend.dto.NewJournalDto;
 import com.ftn.backend.model.Journal;
 import org.springframework.stereotype.Service;
@@ -15,4 +16,5 @@ public interface JournalService {
     Journal findJournalByISSN(String ISSN);
     List<Journal> findAllJournals();
     Journal newJournal (NewJournalDto newJournalDto);
+    BuyJournalDto buyJournal (Long journalId, String email);
 }

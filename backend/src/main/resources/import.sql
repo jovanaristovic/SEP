@@ -19,6 +19,6 @@ INSERT INTO journal (issn, is_open_access, title, is_active, price, scientific_f
 INSERT INTO journal (issn, is_open_access, title, is_active, price, scientific_field_id) values ('123kdk', false, 'Cosmopolitan', true, 93,2);
 
 
-INSERT INTO work(apstrakt, key_words, pdf, title, scientific_field_id) values ('df','gf','dfg','fd',1 );
+INSERT INTO work(apstrakt, title, scientific_field_id) values ('df','gf',1 );
 
 INSERT INTO journal_works (journal_id, works_id) values (1,1);
