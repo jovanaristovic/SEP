@@ -1,23 +1,20 @@
 package com.ftn.paypal.controller;
 
 import com.ftn.paypal.dto.BuyJournalDto;
-import com.ftn.paypal.service.PaypalService;
+import com.ftn.paypal.dto.CreatePlanRequest;
 import com.paypal.api.payments.Links;
+import com.ftn.paypal.service.PaypalService;
 import com.paypal.api.payments.Payment;
-import com.paypal.api.payments.RedirectUrls;
 import com.paypal.base.rest.PayPalRESTException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.view.RedirectView;
 
-import javax.servlet.http.HttpServletRequest;
 import java.util.Arrays;
-import java.util.Map;
 
 @RestController
 @RequestMapping(value = "api/paypal")
@@ -80,8 +77,6 @@ public class PayPalController {
     @GetMapping(value = "/pay/cancel/{id}")
     public RedirectView cancelPay(@PathVariable String id) {
 
-//        hashedId = hashedId.substring(0, hashedId.length()-2);
-
         HttpHeaders requestHeaders = new HttpHeaders();
         requestHeaders.setContentType(MediaType.APPLICATION_JSON);
         requestHeaders.setAccept(Arrays.asList(MediaType.APPLICATION_JSON));
@@ -91,6 +86,25 @@ public class PayPalController {
         return new RedirectView("http://localhost:4200");
 
     }
+
+    @PostMapping(value = "/plan/create")
+    public ResponseEntity createPlanForSubscription(@RequestBody CreatePlanRequest requestCreatePlan) {
+        paypalService.createPlanForSubscription(requestCreatePlan);
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping(value = "/plan/subscribe")
+    public ResponseEntity subscribeToPlan(@RequestBody CreatePlanRequest subscribeDto) {
+        String url = paypalService.subscribeToPlan(subscribeDto);
+        return ResponseEntity.ok(url);
+    }
+
+    @GetMapping(value = "/plan/finishSubscription")
+    public ResponseEntity finishSubscription(@RequestParam("token") String token){
+        paypalService.finishSubscription(token);
+        return ResponseEntity.ok("Subscription finished! <a href='http://localhost:4200'>Home</a>");
+    }
+
 
 
 }
