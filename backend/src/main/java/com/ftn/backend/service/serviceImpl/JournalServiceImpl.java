@@ -3,7 +3,10 @@ package com.ftn.backend.service.serviceImpl;
 
 import com.ftn.backend.dto.BuyJournalDto;
 import com.ftn.backend.dto.NewJournalDto;
+import com.ftn.backend.dto.SubscribeDto;
 import com.ftn.backend.model.*;
+import com.ftn.backend.model.enumeration.FrequencyPayment;
+import com.ftn.backend.model.enumeration.PaymentTypePlan;
 import com.ftn.backend.repository.JournalRepository;
 import com.ftn.backend.service.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -121,5 +124,24 @@ public class JournalServiceImpl implements JournalService {
         HttpEntity requestEntity = new HttpEntity<>(buyJournalDto, requestHeaders);
 
         return requestEntity;
+    }
+
+    @Override
+    public SubscribeDto subscribeJournal(Long journalId, String email, int period) {
+
+        Journal journal = findJournalById(journalId);
+
+        double price = journal.getPrice() / period / 2;
+
+        SubscribeDto subscribeDto = new SubscribeDto();
+        subscribeDto.setPrice(price);
+        subscribeDto.setCurrency("EUR");
+        subscribeDto.setTitleOfJournal(journal.getTitle());
+        subscribeDto.setDescription(journal.getISSN());
+        subscribeDto.setTypeOfPlan(PaymentTypePlan.REGULAR);
+        subscribeDto.setFrequencyPayment(FrequencyPayment.MONTH);
+        subscribeDto.setFrequencyInterval(1);
+        subscribeDto.setCycles(0);
+        return subscribeDto;
     }
 }

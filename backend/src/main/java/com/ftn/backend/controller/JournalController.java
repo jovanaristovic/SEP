@@ -1,6 +1,7 @@
 package com.ftn.backend.controller;
 
 import com.ftn.backend.dto.NewJournalDto;
+import com.ftn.backend.dto.SubscribeDto;
 import com.ftn.backend.model.Journal;
 import com.ftn.backend.service.PurchaseService;
 import com.ftn.backend.service.JournalService;
@@ -27,6 +28,9 @@ public class JournalController {
 
     private static final String PAYPAL_URI= "http://localhost:8090/api/paypal";
 
+    private static final String PAYPAL_SUBSCRIPTION_URI= "http://localhost:8090/api/paypal";
+
+
 
     @PostMapping(value = "/new")
     public ResponseEntity<Journal> newJournal(@RequestBody NewJournalDto newJournalDto) {
@@ -50,14 +54,7 @@ public class JournalController {
     @GetMapping(value = "/buy/{typeOfProduct}/{id}")
     public  Map<String, String> buyJournal(@PathVariable Long id, @PathVariable String typeOfProduct, @RequestHeader(value = "Authorization") String authorization){
 
-        String email = UtilityService.getEmailFromToken(authorization);
-        if (email == null) {
-            try {
-                throw new Exception("Jwt error");
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
+        String email = getEmailFromToken(authorization);
 
         HttpEntity requestEntity = this.journalService.buyJournal(id,email, typeOfProduct);
         RestTemplate restTemplate = new RestTemplate();
@@ -83,4 +80,33 @@ public class JournalController {
     }
 
 
+    @GetMapping(value = "/subscribe/{id}/{period}")
+    public  Map<String, String> subscribeJournal(@PathVariable Long id, @PathVariable int period, @RequestHeader(value = "Authorization") String authorization){
+
+        String email = getEmailFromToken(authorization);
+
+        SubscribeDto subscribeDto = this.journalService.subscribeJournal(id,email, period);
+        RestTemplate restTemplate = new RestTemplate();
+
+        ResponseEntity<String> resp = restTemplate.postForEntity(PAYPAL_SUBSCRIPTION_URI + "/plan/subscribe",subscribeDto, String.class);
+        HashMap<String, String> map = new HashMap<>();
+        map.put("url", resp.getBody());
+
+
+        return map;
+    }
+
+
+    public String getEmailFromToken (String authorization) {
+
+        String email = UtilityService.getEmailFromToken(authorization);
+        if (email == null) {
+            try {
+                throw new Exception("Jwt error");
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+        return email;
+    }
 }
