@@ -1,4 +1,4 @@
-<div class="list-group" *ngIf="insertTimeMode === false">
+<div class="list-group">
   <div  id="magazines">
     <h3>Magazines</h3>
     <br><br>
@@ -24,10 +24,4 @@
     </div>
   </div>
 </div>
-<div *ngIf="insertTimeMode === true">
-  <h1>Select number of months for subscription duration</h1>
-  <br/> <br/>
-  <input type="number" min="1" [(ngModel)]="subscriptionPeriod">
-  <button class="btn btn-secondary" (click)="subscribeToMagazine()">Submit</button>
-  <button class="btn btn-secondary" (click)="cancel()">Cancel</button>
-</div>
+

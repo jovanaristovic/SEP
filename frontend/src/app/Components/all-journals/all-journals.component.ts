@@ -10,8 +10,7 @@ import {Router} from '@angular/router';
 export class AllJournalsComponent implements OnInit {
 
   journals: any;
-  insertTimeMode = false;
-  subscriptionPeriod = 1;
+
 
   constructor(private journalService: JournalService, private router: Router) {
 
@@ -33,16 +32,10 @@ export class AllJournalsComponent implements OnInit {
     this.journalService.buyJournal(journalId);
   }
 
-  subscribeToMagazine() {
-    this.insertTimeMode = false;
+
+  addSubscriptionTime(id: any) {
+    this.router.navigate(['/subscription/period', id]);
   }
 
-  addSubscriptionTime(magazineId: any) {
-    this.insertTimeMode = true;
-  }
-
-  cancel() {
-    this.insertTimeMode = false;
-  }
 
 }

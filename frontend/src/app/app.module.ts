@@ -20,6 +20,7 @@ import { NewJournalComponent } from './Components/new-journal/new-journal.compon
 import { AllJournalsComponent } from './Components/all-journals/all-journals.component';
 import { JournalProfileComponent } from './Components/journal-profile/journal-profile.component';
 import { NewWorkComponent } from './Components/new-work/new-work.component';
+import { AddSubscriptionPeriodComponent } from './Components/add-subscription-period/add-subscription-period.component';
 
 
 const Routes = [
@@ -40,7 +41,8 @@ const Routes = [
     NewJournalComponent,
     AllJournalsComponent,
     JournalProfileComponent,
-    NewWorkComponent
+    NewWorkComponent,
+    AddSubscriptionPeriodComponent
 
   ],
   imports: [
