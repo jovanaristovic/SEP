@@ -105,6 +105,4 @@ public class PayPalController {
         return ResponseEntity.ok("Subscription finished! <a href='http://localhost:4200'>Home</a>");
     }
 
-
-
 }
