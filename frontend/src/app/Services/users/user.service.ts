@@ -80,7 +80,7 @@ export class UserService {
 
 
     getUserByUsername(username): any {
-        return this.httpClient.get('api/users/'.concat(username));
+        return this.httpClient.get('api/user/'.concat(username));
     }
 
     logout() {

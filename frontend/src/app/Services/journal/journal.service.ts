@@ -49,6 +49,7 @@ export class JournalService {
       });
     }, error => {
       this.httpClient.get(error).subscribe(value => {
+
         console.log('error');
       });
     });

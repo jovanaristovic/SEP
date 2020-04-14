@@ -9,6 +9,7 @@ import {AllJournalsComponent} from './Components/all-journals/all-journals.compo
 import {JournalProfileComponent} from './Components/journal-profile/journal-profile.component';
 import {NewWorkComponent} from './Components/new-work/new-work.component';
 import {AddSubscriptionPeriodComponent} from './Components/add-subscription-period/add-subscription-period.component';
+import {AllPurchasesComponent} from './Components/all-purchases/all-purchases.component';
 
 const appRoutes: Routes = [
     {path: '', redirectTo: '/home', pathMatch: 'full'},
@@ -19,7 +20,8 @@ const appRoutes: Routes = [
   {path: 'journal/all', component: AllJournalsComponent},
   {path: 'journal/:id', component: JournalProfileComponent},
   {path: 'work/new/:id', component: NewWorkComponent},
-  {path: 'subscription/period/:id', component: AddSubscriptionPeriodComponent}
+  {path: 'subscription/period/:id', component: AddSubscriptionPeriodComponent},
+  {path: 'purchase/all', component: AllPurchasesComponent}
 
 ];
 

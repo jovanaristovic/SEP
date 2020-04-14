@@ -17,8 +17,8 @@
           <p class="mb-2">ISSN number: {{journal['issn']}}</p>
         </div>
       </div>
-          <button  class="btn btn-primary pull-right" (click)="buyMagazine(journal['id'])">Buy</button>
-          <button class="btn btn-primary pull-right"(click)="addSubscriptionTime(journal['id'])">Subscribe</button>
+          <button *ngIf="journal.openAccess === false && journal.paid === false" class="btn btn-primary pull-right" (click)="buyMagazine(journal['id'])">Buy</button>
+          <button *ngIf="journal.openAccess === false" class="btn btn-primary pull-right"(click)="addSubscriptionTime(journal['id'])">Subscribe</button>
 
 
     </div>
