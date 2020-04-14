@@ -1,17 +1,17 @@
 package com.ftn.backend.service.serviceImpl;
 
+import com.ftn.backend.dto.PurchaseDto;
 import com.ftn.backend.dto.RegisterUserDto;
-import com.ftn.backend.model.Authority;
-import com.ftn.backend.model.User;
+import com.ftn.backend.model.*;
 import com.ftn.backend.repository.AuthorityRepository;
 import com.ftn.backend.repository.UserRepository;
+import com.ftn.backend.service.JournalService;
 import com.ftn.backend.service.UserService;
+import com.ftn.backend.service.WorkService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.core.env.Environment;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import javax.jws.soap.SOAPBinding;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -28,6 +28,12 @@ public class UserServiceImpl implements UserService {
 
     @Autowired
     private PasswordEncoder passwordEncoder;
+
+    @Autowired
+    private JournalService journalService;
+
+    @Autowired
+    private WorkService workService;
 
 
     public User getUserById(Long id) {
@@ -90,6 +96,38 @@ public class UserServiceImpl implements UserService {
     @Override
     public User saveUser(User user) {
         return this.userRepository.save(user);
+    }
+
+    @Override
+    public User findUserById(Long id) {
+        return this.userRepository.findUserById(id);
+    }
+
+    @Override
+    public List<PurchaseDto> findPurchasesByUsername(String username) {
+        User user = this.userRepository.findUserByUsername(username);
+        List<Purchase> purchases = user.getPurchases();
+
+        List<PurchaseDto> purchaseDtos = new ArrayList<>();
+        Journal journal = null;
+        Work work = null;
+        for(Purchase p: purchases){
+
+            if(p.getTypeOfProduct().equals("Magazine")) {
+                journal = this.journalService.findJournalById(p.getId());
+                PurchaseDto purchaseDto = new PurchaseDto(p.getStatus(), p.getTypeOfProduct(),journal.getTitle(), journal.getPrice());
+                purchaseDtos.add(purchaseDto);
+
+            } else {
+                work = this.workService.findById(p.getId());
+                PurchaseDto purchaseDto = new PurchaseDto(p.getStatus(), p.getTypeOfProduct(),work.getTitle(), work.getPrice());
+                purchaseDtos.add(purchaseDto);
+
+            }
+
+
+        }
+        return purchaseDtos;
     }
 
 

@@ -1,5 +1,6 @@
 package com.ftn.backend.controller;
 
+import com.ftn.backend.dto.JournalDto;
 import com.ftn.backend.dto.NewJournalDto;
 import com.ftn.backend.dto.SubscribeDto;
 import com.ftn.backend.model.Journal;
@@ -40,14 +41,18 @@ public class JournalController {
     }
 
     @GetMapping(value = "/all")
-    public ResponseEntity<List<Journal>> getAllJournals() {
-        List<Journal> journals = this.journalService.findAllJournals();
+    public ResponseEntity<List<JournalDto>> getAllJournals(@RequestHeader(value = "Authorization") String authorization) {
+
+        String email = getEmailFromToken(authorization);
+
+        List<JournalDto> journals = this.journalService.findAllJournals(email);
         return new ResponseEntity<>(journals, HttpStatus.OK);
     }
 
     @GetMapping(value = "/{id}")
-    public ResponseEntity<Journal> getJournalById(@PathVariable Long id) {
-        Journal journal = this.journalService.findJournalById(id);
+    public ResponseEntity<JournalDto> getJournalById(@PathVariable Long id, @RequestHeader(value = "Authorization") String authorization) {
+        String email = getEmailFromToken(authorization);
+        JournalDto journal = this.journalService.findJournalByIdAndUser(id, email);
         return new ResponseEntity<>(journal, HttpStatus.OK);
     }
 
