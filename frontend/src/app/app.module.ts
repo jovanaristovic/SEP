@@ -22,6 +22,8 @@ import { JournalProfileComponent } from './Components/journal-profile/journal-pr
 import { NewWorkComponent } from './Components/new-work/new-work.component';
 import { AddSubscriptionPeriodComponent } from './Components/add-subscription-period/add-subscription-period.component';
 import { AllPurchasesComponent } from './Components/all-purchases/all-purchases.component';
+import {NewWorkForElasticsearchComponent} from "./Components/new-work-for-elasticsearch/new-work-for-elasticsearch.component";
+
 
 
 const Routes = [
@@ -44,7 +46,8 @@ const Routes = [
     JournalProfileComponent,
     NewWorkComponent,
     AddSubscriptionPeriodComponent,
-    AllPurchasesComponent
+    AllPurchasesComponent,
+    NewWorkForElasticsearchComponent
 
   ],
   imports: [

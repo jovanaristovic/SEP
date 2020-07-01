@@ -16,7 +16,7 @@ export class JournalProfileComponent implements OnInit {
   journalWorks: any;
   id: any;
   href: any;
-  journal:any;
+  journal: any;
 
   constructor(private journalService: JournalService, private router: Router, private workService: WorkService) { }
 
@@ -38,11 +38,11 @@ export class JournalProfileComponent implements OnInit {
   }
 
   download(fileName) {
-    const EXT = fileName.substr(fileName.lastIndexOf('.') + 1);
-    this.workService.downladWork(fileName)
-      .subscribe(data => {
-        saveAs(new Blob([data], {type: MIME_TYPE[EXT]}), fileName);
-      });
+    // const EXT = fileName.substr(fileName.lastIndexOf('.') + 1);
+    // this.workService.downladWork(fileName)
+    //   .subscribe(data => {
+    //     saveAs(new Blob([data], {type: MIME_TYPE[EXT]}), fileName);
+    //   });
   }
 
 
