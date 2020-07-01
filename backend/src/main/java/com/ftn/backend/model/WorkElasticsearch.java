@@ -6,6 +6,7 @@ import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Field;
 import org.springframework.data.elasticsearch.annotations.FieldType;
 
+
 @Document(indexName = "journal", type = "work")
 @Data
 public class WorkElasticsearch {
@@ -13,7 +14,7 @@ public class WorkElasticsearch {
     @Id
     private Long id;
 
-    @Field(type= FieldType.Long)
+    @Field(type = FieldType.Long)
     private Long workId;
 
     @Field(type = FieldType.Text)
@@ -41,9 +42,11 @@ public class WorkElasticsearch {
     private String authors;
 
 
-    public WorkElasticsearch() {}
+    public WorkElasticsearch() {
+    }
 
     public WorkElasticsearch(WorkUDD workUDD) {
+        this.id = workUDD.getId();
         this.workId = workUDD.getId();
         this.title = workUDD.getTitle();
         this.journalTitle = workUDD.getJournalTitle();
@@ -54,11 +57,4 @@ public class WorkElasticsearch {
         this.authors = workUDD.getAuthors();
     }
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
 }

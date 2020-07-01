@@ -26,7 +26,7 @@ public class WorkUddServiceImpl implements WorkUddService {
     WorkUddRepository workUddRepository;
 
     @Autowired
-    WorkElasticsearchRepository workElasticsearchRepository;
+    private WorkElasticsearchRepository workElasticsearchRepository;
 
     @Override
     public WorkElasticsearch newWorkUdd(NewWorkUddDto newWorkUddDto) throws IOException {
@@ -62,8 +62,7 @@ public class WorkUddServiceImpl implements WorkUddService {
         String text = parsePDF(filePath);
         workElasticsearch.setText(text);
 
-        WorkElasticsearch workElasticsearch1 = this.workElasticsearchRepository.save(workElasticsearch);
-        return workElasticsearch1;
+        return this.workElasticsearchRepository.save(workElasticsearch);
 
     }
 
