@@ -1,7 +1,7 @@
 export class NewWorkUddDto {
   constructor(
-    public title: string,
     public journalTitle,
+    public title: string,
     public apstrakt,
     public keyTerms,
     public scientificField,
