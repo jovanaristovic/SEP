@@ -1,11 +1,11 @@
 package com.ftn.backend.service.serviceImpl;
 
-import com.ftn.backend.dto.NewWorkUddDto;
-import com.ftn.backend.model.WorkElasticsearch;
+import com.ftn.backend.elasticsearch.dto.NewWorkUddDto;
+import com.ftn.backend.elasticsearch.WorkElasticsearchRepository;
+import com.ftn.backend.service.WorkUddService;
+import com.ftn.backend.elasticsearch.WorkElasticsearch;
 import com.ftn.backend.model.WorkUDD;
 import com.ftn.backend.repository.WorkUddRepository;
-import com.ftn.backend.repository.elasticsearch.WorkElasticsearchRepository;
-import com.ftn.backend.service.WorkUddService;
 import org.apache.pdfbox.io.RandomAccessFile;
 import org.apache.pdfbox.pdfparser.PDFParser;
 import org.apache.pdfbox.text.PDFTextStripper;

@@ -1,6 +1,6 @@
 package com.ftn.backend.model;
 
-import com.ftn.backend.dto.NewWorkUddDto;
+import com.ftn.backend.elasticsearch.dto.NewWorkUddDto;
 import lombok.Data;
 
 import javax.persistence.*;

@@ -21,6 +21,8 @@ INSERT INTO users_purchases(users_id, purchases_id) values (1,3);
 INSERT INTO scientificfields(id, name) values (1,'geografija');
 INSERT INTO scientificfields(id, name) values (2,'fizika');
 INSERT INTO scientificfields(id, name) values (3,'hemija');
+INSERT INTO scientificfields(id, name) values (4,'zoologija');
+
 
 INSERT INTO journal (issn, is_open_access, title, is_active, price, scientific_field_id) values ('nd89', false, 'Nacionalna geografija', true, 34,1);
 INSERT INTO journal (issn, is_open_access, title, is_active, price, scientific_field_id) values ('123kdk', true , 'Cosmopolitan', true, 93,2);

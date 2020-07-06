@@ -1,8 +1,7 @@
 package com.ftn.backend.service;
 
-import com.ftn.backend.dto.NewWorkUddDto;
-import com.ftn.backend.model.WorkElasticsearch;
-import com.ftn.backend.model.WorkUDD;
+import com.ftn.backend.elasticsearch.dto.NewWorkUddDto;
+import com.ftn.backend.elasticsearch.WorkElasticsearch;
 import org.springframework.stereotype.Service;
 
 import java.io.IOException;

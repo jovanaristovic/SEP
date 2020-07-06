@@ -1,11 +1,7 @@
 package com.ftn.backend.controller;
 
-import com.ftn.backend.dto.NewWorkDto;
-import com.ftn.backend.dto.NewWorkUddDto;
-import com.ftn.backend.model.Work;
-import com.ftn.backend.model.WorkElasticsearch;
-import com.ftn.backend.model.WorkUDD;
-import com.ftn.backend.service.WorkService;
+import com.ftn.backend.elasticsearch.dto.NewWorkUddDto;
+import com.ftn.backend.elasticsearch.WorkElasticsearch;
 import com.ftn.backend.service.WorkUddService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

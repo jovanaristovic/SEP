@@ -1,5 +1,6 @@
-package com.ftn.backend.model;
+package com.ftn.backend.elasticsearch;
 
+import com.ftn.backend.model.WorkUDD;
 import lombok.Data;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.elasticsearch.annotations.Document;
@@ -17,25 +18,25 @@ public class WorkElasticsearch {
     @Field(type = FieldType.Long)
     private Long workId;
 
-    @Field(type = FieldType.Text)
+    @Field(type = FieldType.Text, searchAnalyzer = "serbian",analyzer = "serbian")
     private String title;
 
-    @Field(type = FieldType.Text)
+    @Field(type = FieldType.Text, searchAnalyzer = "serbian",analyzer = "serbian")
     private String journalTitle;
 
-    @Field(type = FieldType.Text)
+    @Field(type = FieldType.Text, searchAnalyzer = "serbian",analyzer = "serbian")
     private String apstrakt;
 
-    @Field(type = FieldType.Text)
+    @Field(type = FieldType.Text, searchAnalyzer = "serbian",analyzer = "serbian")
     private String keyTerms;
 
-    @Field(type = FieldType.Text)
+    @Field(type = FieldType.Text, searchAnalyzer = "serbian",analyzer = "serbian")
     private String scientificField;
 
-    @Field(type = FieldType.Text)
+    @Field(type = FieldType.Text, searchAnalyzer = "serbian",analyzer = "serbian")
     private String pdfFileName;
 
-    @Field(type = FieldType.Text)
+    @Field(type = FieldType.Text, searchAnalyzer = "serbian",analyzer = "serbian")
     private String text;
 
     @Field(type = FieldType.Text, store = true)

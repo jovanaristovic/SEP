@@ -6,6 +6,9 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.data.elasticsearch.client.ClientConfiguration;
 import org.springframework.data.elasticsearch.client.RestClients;
 import org.springframework.data.elasticsearch.config.AbstractElasticsearchConfiguration;
+import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
+
+import java.net.UnknownHostException;
 
 @Configuration
 public class RestClientConfig extends AbstractElasticsearchConfiguration {
@@ -21,5 +24,7 @@ public class RestClientConfig extends AbstractElasticsearchConfiguration {
 
         return RestClients.create(clientConfiguration).rest();
     }
+
+
 
 }
