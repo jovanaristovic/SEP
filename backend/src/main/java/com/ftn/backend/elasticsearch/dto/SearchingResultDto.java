@@ -13,10 +13,11 @@ public class SearchingResultDto {
     private String scientificField;
     private String authors;
     private String highlight;
+    private String fileName;
 
     public SearchingResultDto(Long id, String title, String journalTitle,
                               String apstrakt, String keyTerms, String scientificField,
-                              String authors, String highlight) {
+                              String authors, String highlight, String fileName) {
         this.id = id;
         this.title = title;
         this.journalTitle = journalTitle;
@@ -25,5 +26,6 @@ public class SearchingResultDto {
         this.scientificField = scientificField;
         this.authors = authors;
         this.highlight = highlight;
+        this.fileName = fileName;
     }
 }

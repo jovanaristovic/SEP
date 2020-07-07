@@ -2,6 +2,7 @@ package com.ftn.backend.elasticsearch;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
+import com.ftn.backend.elasticsearch.dto.CombinedSearchDto;
 import com.ftn.backend.elasticsearch.dto.SearchDto;
 import com.ftn.backend.elasticsearch.dto.SearchingResultDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,4 +44,11 @@ public class SearchController {
 
     }
 
+    @PostMapping (value = "/combine")
+    public ResponseEntity<List<SearchingResultDto>> combinedSearch(@RequestBody CombinedSearchDto searchDto) throws JsonProcessingException
+    {
+        return new ResponseEntity<>(this.workElasticsearchService.combinedSearch(searchDto), HttpStatus.OK);
+    }
 }
+
+

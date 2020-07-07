@@ -1,6 +1,7 @@
 package com.ftn.backend.elasticsearch;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.ftn.backend.elasticsearch.dto.CombinedSearchDto;
 import com.ftn.backend.elasticsearch.dto.SearchingResultDto;
 import org.springframework.stereotype.Service;
 
@@ -21,6 +22,10 @@ public interface WorkElasticsearchService {
     List<SearchingResultDto> searchByKeyTerms(String keyTerms);
 
     List<SearchingResultDto> searchByText(String text);
+
+    List<SearchingResultDto> combinedSearch (CombinedSearchDto combinedSearchDto);
+
+
 
 
 }
