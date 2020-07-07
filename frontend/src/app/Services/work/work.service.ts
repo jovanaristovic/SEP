@@ -16,11 +16,10 @@ export class WorkService {
   }
 
   downladWork(fileName) {
-    // const REQUEST_PARAM = new HttpParams().set('fileName', fileName);
-    // // @ts-ignore
-    // return this.httpClient.get('api/download/file',
-    //   {params: REQUEST_PARAM,
-    //     responseType: 'ArrayBuffer'}) as Observable<any>;
+    const REQUEST_PARAM = new HttpParams().set('fileName', fileName);
+    return this.httpClient.get('api/download/file',
+      {params: REQUEST_PARAM,
+        responseType: 'ArrayBuffer'}) as Observable<any>;
 
   }
 }

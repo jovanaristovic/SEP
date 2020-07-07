@@ -10,7 +10,8 @@ import {JournalProfileComponent} from './Components/journal-profile/journal-prof
 import {NewWorkComponent} from './Components/new-work/new-work.component';
 import {AddSubscriptionPeriodComponent} from './Components/add-subscription-period/add-subscription-period.component';
 import {AllPurchasesComponent} from './Components/all-purchases/all-purchases.component';
-import {NewWorkForElasticsearchComponent} from "./Components/new-work-for-elasticsearch/new-work-for-elasticsearch.component";
+import {NewWorkForElasticsearchComponent} from './Components/new-work-for-elasticsearch/new-work-for-elasticsearch.component';
+import {SearchComponent} from './Components/search/search.component';
 
 const appRoutes: Routes = [
     {path: '', redirectTo: '/home', pathMatch: 'full'},
@@ -23,7 +24,8 @@ const appRoutes: Routes = [
   {path: 'work/new/:id', component: NewWorkComponent},
   {path: 'subscription/period/:id', component: AddSubscriptionPeriodComponent},
   {path: 'purchase/all', component: AllPurchasesComponent},
-  {path: 'new/work/udd', component: NewWorkForElasticsearchComponent}
+  {path: 'new/work/udd', component: NewWorkForElasticsearchComponent},
+  {path: 'search', component: SearchComponent}
 
 
 ];

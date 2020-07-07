@@ -23,6 +23,7 @@ import { NewWorkComponent } from './Components/new-work/new-work.component';
 import { AddSubscriptionPeriodComponent } from './Components/add-subscription-period/add-subscription-period.component';
 import { AllPurchasesComponent } from './Components/all-purchases/all-purchases.component';
 import {NewWorkForElasticsearchComponent} from "./Components/new-work-for-elasticsearch/new-work-for-elasticsearch.component";
+import { SearchComponent } from './Components/search/search.component';
 
 
 
@@ -47,7 +48,8 @@ const Routes = [
     NewWorkComponent,
     AddSubscriptionPeriodComponent,
     AllPurchasesComponent,
-    NewWorkForElasticsearchComponent
+    NewWorkForElasticsearchComponent,
+    SearchComponent
 
   ],
   imports: [
