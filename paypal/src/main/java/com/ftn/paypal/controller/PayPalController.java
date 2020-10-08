@@ -30,8 +30,8 @@ public class PayPalController {
     public String pay(@RequestBody BuyJournalDto request) {
         String cancelUrl = "";
         String successUrl = "";
-        successUrl = "http://localhost:8090/api/paypal" + SUCCESS_URL+"/"+ request.getPurchaseId();
-        cancelUrl = "http://localhost:8090/api/paypal" + CANCEL_URL+"/" + request.getPurchaseId();
+        successUrl = "https://localhost:8090/api/paypal" + SUCCESS_URL+"/"+ request.getPurchaseId();
+        cancelUrl = "https://localhost:8090/api/paypal" + CANCEL_URL+"/" + request.getPurchaseId();
 
         try {
             Payment payment = paypalService.createPayment(
@@ -53,6 +53,10 @@ public class PayPalController {
     return "";
 
     }
+
+
+
+
 
     @GetMapping(value = "/pay/complete/{id}")
     public RedirectView completePay(@RequestParam("paymentId") String paymentId, @RequestParam("PayerID") String payerId, @PathVariable Long id){
@@ -104,5 +108,6 @@ public class PayPalController {
         paypalService.finishSubscription(token);
         return ResponseEntity.ok("Subscription finished! <a href='http://localhost:4200'>Home</a>");
     }
+
 
 }

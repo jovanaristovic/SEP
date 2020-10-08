@@ -90,7 +90,7 @@ public class PaypalService {
         MerchantPreferences merchantPreferences = new MerchantPreferences();
         merchantPreferences.setSetupFee(currency);
         merchantPreferences.setCancelUrl("http://localhost:4200");
-        merchantPreferences.setReturnUrl("http://localhost:8090/api/paypal/plan/finishSubscription/");
+        merchantPreferences.setReturnUrl("https://localhost:8090/api/paypal/plan/finishSubscription/");
         merchantPreferences.setMaxFailAttempts("0");
         merchantPreferences.setAutoBillAmount("YES");
         merchantPreferences.setInitialFailAmountAction("CONTINUE");

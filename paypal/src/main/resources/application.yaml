@@ -1,0 +1,9 @@
+server:  
+  port: 8090
+  ssl:
+    enabled: true
+    key-store: classpath:paypalkeystore.jks
+    key-store-password: paypalpass
+    key-alias: paypal
+security:
+  require-ssl: false
