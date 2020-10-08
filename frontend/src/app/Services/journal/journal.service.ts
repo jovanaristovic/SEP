@@ -27,7 +27,7 @@ export class JournalService {
 
   buyJournal(id) {
     return this.httpClient.get('api/journal/buy/journal/'.concat(id)).subscribe(url => {
-
+      console.log(url);
       this.document.location.href = url['url'];
       this.httpClient.get(url['url']).subscribe(ret => {
         console.log('success');

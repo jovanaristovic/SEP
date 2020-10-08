@@ -14,8 +14,8 @@
           </div>
         </div>
       </div>
-      <button *ngIf="journal.openAccess === false && journal.paid === false" class="btn btn-primary pull-right" (click)="buyWork(work['id'])">Buy</button>
-      <button *ngIf="journal.paid === true || journal.openAccess === true" class="btn btn-primary pull-right" (click)="download(work['fileName'])">Download</button>
+      <button *ngIf="journal.openAccess === false && journal.paid === 'New' || journal.paid === 'Canceled' || journal.paid === '' " class="btn btn-primary pull-right" (click)="buyWork(work['id'])">Buy</button>
+      <button *ngIf="journal.paid === 'Paid' || journal.openAccess === true" class="btn btn-primary pull-right" (click)="download(work['fileName'])">Download</button>
 
 
     </div>
