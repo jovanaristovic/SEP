@@ -15,31 +15,32 @@ public class JournalDto {
     private boolean isOpenAccess;
     private ScientificField scientificField;
     private Long price;
-    private boolean isPaid;
+    private String paid;
     private List<Work> works;
+
 
     public JournalDto () {
 
     }
 
-    public JournalDto(Long id ,String title, String ISSN, boolean isOpenAccess, ScientificField scientificField, Long price, boolean isPaid) {
+    public JournalDto(Long id ,String title, String ISSN, boolean isOpenAccess, ScientificField scientificField, Long price, String paid) {
         this.id  = id;
         this.title = title;
         this.ISSN = ISSN;
         this.isOpenAccess = isOpenAccess;
         this.scientificField = scientificField;
         this.price = price;
-        this.isPaid = isPaid;
+        this.paid= paid;
     }
 
-    public JournalDto(Long id, String title, String ISSN, boolean isOpenAccess, ScientificField scientificField, Long price, boolean isPaid, List<Work> works) {
+    public JournalDto(Long id, String title, String ISSN, boolean isOpenAccess, ScientificField scientificField, Long price, String paid, List<Work> works) {
         this.id = id;
         this.title = title;
         this.ISSN = ISSN;
         this.isOpenAccess = isOpenAccess;
         this.scientificField = scientificField;
         this.price = price;
-        this.isPaid = isPaid;
+        this.paid = paid;
         this.works = works;
     }
 }

@@ -1,10 +1,7 @@
 package com.ftn.backend.service.serviceImpl;
 
 
-import com.ftn.backend.dto.BuyJournalDto;
-import com.ftn.backend.dto.JournalDto;
-import com.ftn.backend.dto.NewJournalDto;
-import com.ftn.backend.dto.SubscribeDto;
+import com.ftn.backend.dto.*;
 import com.ftn.backend.model.*;
 import com.ftn.backend.model.enumeration.FrequencyPayment;
 import com.ftn.backend.model.enumeration.PaymentTypePlan;
@@ -46,31 +43,32 @@ public class JournalServiceImpl implements JournalService {
     }
 
     @Override
-    public JournalDto findJournalByIdAndUser(Long id, String email)
-    {   Journal journal = this.journalRepository.findJournalById(id);
+    public JournalDto findJournalByIdAndUser(Long id, String email) {
+        Journal journal = this.journalRepository.findJournalById(id);
         User user = this.userService.findUserByEmail(email);
         List<Purchase> purchases = user.getPurchases();
 
-        boolean isPaid = false;
-        for(Purchase purchase:purchases){
-            if(purchase.getTypeOfProduct().equals("Magazine")){
+        String isPaid = "";
+        for (Purchase purchase : purchases) {
+            if (purchase.getTypeOfProduct().equals("Magazine")) {
                 Journal journal1 = this.journalRepository.findJournalById(purchase.getProductId());
-                if(journal1.getTitle().equals(journal.getTitle())){
-                    if(purchase.getStatus().equals("Paid")){
-                        isPaid=true;
+                if (journal1.getTitle().equals(journal.getTitle())) {
+                    if (purchase.getStatus().equals("Paid")) {
+                        isPaid = purchase.getStatus();
                     }
                 }
             }
 
+
         }
 
-        return new JournalDto(journal.getId(),journal.getTitle(),journal.getISSN(),journal.isOpenAccess(),journal.getScientificField(),journal.getPrice(),isPaid, journal.getWorks()) ;
+        return new JournalDto(journal.getId(), journal.getTitle(), journal.getISSN(), journal.isOpenAccess(), journal.getScientificField(), journal.getPrice(), isPaid, journal.getWorks());
     }
 
     @Override
-    public Journal findJournalById(Long id)
-    {   Journal journal = this.journalRepository.findJournalById(id);
-        return journal ;
+    public Journal findJournalById(Long id) {
+        Journal journal = this.journalRepository.findJournalById(id);
+        return journal;
     }
 
     @Override
@@ -86,39 +84,40 @@ public class JournalServiceImpl implements JournalService {
     @Override
     public List<JournalDto> findAllJournals(String email) {
         User user = this.userService.findUserByEmail(email);
-        List<JournalDto> journalDtos = new ArrayList<>();
+        Set<JournalDto> journalDtos = new HashSet<JournalDto>();
         List<Journal> journals = journalRepository.findAll();
         List<Journal> journalsTemp = journalRepository.findAll();
-        boolean isPaid = false;
 
         for (Purchase purchase : user.getPurchases()) {
-                for (Journal journal : journals) {
-                    Journal journalInPurchase = null;
+            for (Journal journal : journals) {
+                Journal journalInPurchase = null;
 
-                    if (purchase.getTypeOfProduct().equals("Magazine")) {
-                        journalInPurchase = this.journalRepository.findJournalById(purchase.getProductId());
+                if (purchase.getTypeOfProduct().equals("Magazine")) {
+                    journalInPurchase = this.journalRepository.findJournalById(purchase.getProductId());
 
-                        if (journalInPurchase.getTitle().equals(journal.getTitle())) {
-                            if (purchase.getStatus().equals("Paid")) {
-                                isPaid = true;
-                            }
-                            JournalDto journalDto = new JournalDto(journal.getId(), journal.getTitle(), journal.getISSN(), journal.isOpenAccess(), journal.getScientificField(), journal.getPrice(), isPaid);
-                            journalDtos.add(journalDto);
+                    if (journalInPurchase.getTitle().equals(journal.getTitle())) {
 
-                            journalsTemp.remove(journal);
+                        JournalDto journalDto = new JournalDto(journal.getId(), journal.getTitle(), journal.getISSN(), journal.isOpenAccess(), journal.getScientificField(), journal.getPrice(), purchase.getStatus());
+                        journalDtos.add(journalDto);
 
-                        }
+                        journalsTemp.remove(journal);
+
                     }
                 }
+            }
 
         }
 
-        for (Journal journal:journalsTemp){
-            JournalDto journalDto = new JournalDto(journal.getId(),journal.getTitle(), journal.getISSN(), journal.isOpenAccess(), journal.getScientificField(), journal.getPrice(), false);
+        for (Journal journal : journalsTemp) {
+            JournalDto journalDto = new JournalDto(journal.getId(), journal.getTitle(), journal.getISSN(), journal.isOpenAccess(), journal.getScientificField(), journal.getPrice(), "New");
             journalDtos.add(journalDto);
         }
+        List<JournalDto> listDto = new ArrayList<>();
 
-        return journalDtos;
+        for (JournalDto dto : journalDtos) {
+            listDto.add(dto);
+        }
+        return listDto;
     }
 
     @Override
@@ -140,17 +139,43 @@ public class JournalServiceImpl implements JournalService {
         Purchase purchase = null;
         Journal journal = null;
         Work work = null;
-        if(typeOfProduct.equals("journal")) {
-             journal = this.journalRepository.findJournalById(id);
-            purchase = new Purchase(journal.getId(), "New", "Magazine");
-            this.purchaseService.save(purchase);
-        } else{
+        BuyJournalDto buyJournalDto = null;
+
+        if (typeOfProduct.equals("journal")) {
+            journal = this.journalRepository.findJournalById(id);
+            Purchase oldPurchase = this.purchaseService.findByProductIdAndTypeOfProduct(journal.getId(), "Magazine");
+            if (oldPurchase != null) {
+                if (oldPurchase.getStatus().equals("Canceled")) {
+                    oldPurchase.setStatus("New");
+                    this.purchaseService.save(oldPurchase);
+                    buyJournalDto = new BuyJournalDto(id, journal.getTitle(), email, journal.getPrice(), oldPurchase.getId());
+
+                }
+            } else {
+                purchase = new Purchase(journal.getId(), "New", "Magazine");
+                this.purchaseService.save(purchase);
+                buyJournalDto = new BuyJournalDto(id, journal.getTitle(), email, journal.getPrice(), purchase.getId());
+
+            }
+        } else {
             work = this.workService.findById(id);
-            purchase = new Purchase(work.getId(), "New", "Work");
-            this.purchaseService.save(purchase);
+            Purchase oldPurchase = this.purchaseService.findByProductIdAndTypeOfProduct(work.getId(), "Work");
+            if (oldPurchase != null) {
+                if (oldPurchase.getStatus().equals("Canceled")) {
+                    oldPurchase.setStatus("New");
+                    this.purchaseService.save(oldPurchase);
+                    buyJournalDto = new BuyJournalDto(id, work.getTitle(), email, work.getPrice(), oldPurchase.getId());
+
+                }
+            } else {
+                purchase = new Purchase(work.getId(), "New", "Work");
+                this.purchaseService.save(purchase);
+                buyJournalDto = new BuyJournalDto(id, work.getTitle(), email, work.getPrice(), purchase.getId());
+
+            }
         }
 
-        if(user.getPurchases() == null){
+        if (user.getPurchases() == null) {
             List<Purchase> purchases = new ArrayList<>();
             purchases.add(purchase);
             user.setPurchases(purchases);
@@ -158,20 +183,6 @@ public class JournalServiceImpl implements JournalService {
             user.getPurchases().add(purchase);
         }
         userService.saveUser(user);
-
-        BuyJournalDto buyJournalDto = null;
-        if (typeOfProduct.equals("journal")) {
-
-            Transaction transaction = new Transaction("Magazine", id, email, journal.getPrice(), "New", purchase.getId());
-            this.transactionService.save(transaction);
-            buyJournalDto = new BuyJournalDto(id, journal.getTitle(), email, journal.getPrice(), purchase.getId());
-
-
-        } else {
-            Transaction transaction = new Transaction("Work", id, email, work.getPrice(), "New", purchase.getId());
-            this.transactionService.save(transaction);
-            buyJournalDto = new BuyJournalDto(id, work.getTitle(), email, work.getPrice(), purchase.getId());
-        }
 
 
         HttpHeaders requestHeaders = new HttpHeaders();

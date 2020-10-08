@@ -11,4 +11,5 @@ public interface PurchaseService {
     Purchase save (Purchase purchase);
     void changeStatusPaid(Long id);
     void changeStatusCanceled(Long id);
+    Purchase findByProductIdAndTypeOfProduct(Long productId, String typeOfProduct);
 }

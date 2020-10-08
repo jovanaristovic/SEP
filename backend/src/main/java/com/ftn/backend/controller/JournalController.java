@@ -27,9 +27,9 @@ public class JournalController {
     @Autowired
     private PurchaseService purchaseService;
 
-    private static final String PAYPAL_URI= "http://localhost:8090/api/paypal";
+    private static final String PAYPAL_URI= "https://localhost:8090/api/paypal";
 
-    private static final String PAYPAL_SUBSCRIPTION_URI= "http://localhost:8090/api/paypal";
+    private static final String PAYPAL_SUBSCRIPTION_URI= "https://localhost:8090/api/paypal";
 
 
 
@@ -81,7 +81,8 @@ public class JournalController {
 
     @GetMapping(value = "/cancel/{id}")
     public void cancelOrder(@PathVariable Long id){
-        this.purchaseService.changeStatusPaid(id);
+
+        this.purchaseService.changeStatusCanceled(id);
     }
 
 
